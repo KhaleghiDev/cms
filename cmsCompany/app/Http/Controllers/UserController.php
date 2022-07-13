@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use DataTable;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
@@ -11,9 +14,18 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index( Request $request)
     {
         $pagename="مدیریت کاربران";
+        $model = User::query();
+        if(request()->ajax()) {
+            return DataTables::eloquent($model)
+                ->setRowId('id')
+                ->toJson();
+            // return DataTables::of(User::select('*'))
+            // ->addIndexColumn()
+            // ->make(true);
+        }
         return view("useres.index", compact('pagename'));
     }
 

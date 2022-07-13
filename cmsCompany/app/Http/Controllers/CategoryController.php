@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class CategoryController extends Controller
 {
@@ -15,6 +16,15 @@ class CategoryController extends Controller
     public function index()
     {
         $pagename="مدیریت دسته بندی";
+        $model = Category::query();
+        if(request()->ajax()) {
+            return DataTables::eloquent($model)
+                ->setRowId('id')
+                ->toJson();
+            // return DataTables::of(User::select('*'))
+            // ->addIndexColumn()
+            // ->make(true);
+        }
         return view("categories.index", compact('pagename'));
     }
 

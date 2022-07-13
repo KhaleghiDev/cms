@@ -16,6 +16,12 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link  href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -56,18 +62,19 @@
                                 <a class="nav-link" href="{{ route('admin.comment.index') }}">مدیریت نظرات</a>
                             </li>
 
-                            <div class="dropdown show">
-                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
-                                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    سایر مدیریت ها
+                            <div class="dropdown">
+                                <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                 سایر مدیریت ها
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" href="#">مدیریت پکیج</a>
-                                    <a class="dropdown-item" href="#">مدیریت درباره ما </a>
-                                    <a class="dropdown-item" href="#">مدیریت </a>
-                                </div>
-                            </div>
+
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                  <li><a class="dropdown-item" href="#">مدیریت پکیج ها </a></li>
+                                  <li><a class="dropdown-item" href="#">مدیریت بخش همکاری </a></li>
+                                  <li><a class="dropdown-item" href="#">مدیریت تماس با ما </a></li>
+                                  <li><a class="dropdown-item" href="#">مدیریت درباره ما  </a></li>
+                                  <li><a class="dropdown-item" href="#">تنظیمات   </a></li>
+                                </ul>
+                              </div>
                         </ul>
                     </div>
 
@@ -118,6 +125,12 @@
         </main>
 
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    @yield('js')
 </body>
 
 </html>
