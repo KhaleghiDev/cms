@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Modules\Blog\Http\Controllers\PostsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +13,7 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:api')->get('/blog', function (Request $request) {
-    return $request->user();
-});
+Route::apiResource('user', UserController::class);('/post','PostsController');
+// Route::middleware('auth:api')->get('/blog', function (Request $request) {
+//     return $request->user();
+// });

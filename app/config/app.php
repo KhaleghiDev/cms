@@ -174,7 +174,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        //dav me
+        'Morilog\Jalali\JalaliServiceProvider',
     ],
 
     /*
@@ -229,6 +230,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        //dev me
+        'jDate' => 'Morilog\Jalali\Facades\jDate',
+        'jDateTime' => 'Morilog\Jalali\Facades\jDateTime',
 
     ],
 
