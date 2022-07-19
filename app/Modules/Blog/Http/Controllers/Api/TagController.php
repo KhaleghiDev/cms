@@ -1,14 +1,12 @@
 <?php
 
-namespace Modules\Blog\Http\Controllers;
+namespace Modules\Blog\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\Blog\Entities\Post;
-use Modules\Blog\Transformers\PostResource;
 
-class PostsController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +14,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $allPost= Post::all();
-        
+        //
     }
 
     /**

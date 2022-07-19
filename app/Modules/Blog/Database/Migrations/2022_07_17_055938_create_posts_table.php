@@ -13,7 +13,7 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories_blog', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('slug');
@@ -32,12 +32,7 @@ class CreatePostsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('post_tag', function (Blueprint $table) {
-            $table->unsignedBigInteger('tag_id');
-            $table->foreign('tag_id')->references('id')->on('tages')->onUpdate('cascade')->onDelete('cascade');
-            $table->unsignedBigInteger('post_id');
-            $table->foreign('post_id')->references('id')->on('posts')->onUpdate('cascade')->onDelete('cascade');
-        });
+
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
@@ -45,12 +40,21 @@ class CreatePostsTable extends Migration
             $table->text('post');
             $table->string('img');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('category_id');
             $table->tinyInteger('status')->default(0);
             $table->integer('view')->default(1);
             $table->integer('like')->default(0);
             $table->softDeletes();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
+        });
+        Schema::create('post_tag', function (Blueprint $table) {
+            $table->unsignedBigInteger('tag_id');
+            $table->foreign('tag_id')->references('id')->on('tages')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('post_id');
+            $table->foreign('post_id')->references('id')->on('posts')->onUpdate('cascade')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -63,7 +67,7 @@ class CreatePostsTable extends Migration
     {
         Schema::dropIfExists('categories_blog');
         Schema::dropIfExists('tages');
-        Schema::dropIfExists('post_tag');
         Schema::dropIfExists('posts');
+        Schema::dropIfExists('post_tag');
     }
 }

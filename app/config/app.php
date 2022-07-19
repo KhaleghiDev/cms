@@ -175,7 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         //dav me
-        'Morilog\Jalali\JalaliServiceProvider',
+        // Morilog\Jalali\JalaliServiceProvider::class,
     ],
 
     /*
@@ -231,8 +231,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         //dev me
-        'jDate' => 'Morilog\Jalali\Facades\jDate',
-        'jDateTime' => 'Morilog\Jalali\Facades\jDateTime',
+        // 'jDate' => Morilog\Jalali\Facades\jDate::class,
+        // 'jDateTime' => Morilog\Jalali\Facades\jDateTime::class,
 
     ],
 
