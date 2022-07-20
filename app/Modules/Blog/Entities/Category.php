@@ -4,6 +4,7 @@ namespace Modules\Blog\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
@@ -17,9 +18,8 @@ class Category extends Model
         'parintid',
         'status',
     ];
-
-    protected static function newFactory()
-    {
-        return \Modules\Blog\Database\factories\CategoryFactory::new();
-    }
+ public function post()
+{
+    return $this->hasOne(Post::class);
+}
 }

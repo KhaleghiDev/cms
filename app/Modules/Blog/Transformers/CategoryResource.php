@@ -3,6 +3,7 @@
 namespace Modules\Blog\Transformers;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use PhpParser\Node\Expr\PostDec;
 
 class CategoryResource extends JsonResource
 {
@@ -19,6 +20,8 @@ class CategoryResource extends JsonResource
             'title' =>$this->title,
             'sulg' =>$this->slug,
             'parintid' =>$this->parintid,
+
+            // 'post'=>new PostDec($this->post),
             'date'=>jdate($this->created_at)->format('Y/m/d'),
             'time'=>jdate($this->created_at)->format('H:i:s'),
         ];

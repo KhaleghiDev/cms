@@ -70,14 +70,16 @@ class CategoryController extends Controller
     {
 
 
-        $category = Category::find($id);
-        $post = Post::where('category_id', $category->id)->get();
+        $category = Category::find($id)->first();
+        $category_id=$category->id;
+        $post = Post::where('category_id', $category_id)->get();
         if (is_null($category)) {
             return response()->json('Data not found', 404);
         }
         return response()->json([
             'category' =>   new CategoryResource($category),
             'post' => $post,
+            // 'post' => PostResource::collection($post),
             'status' => true,
         ], 200);
     }

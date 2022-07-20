@@ -45,7 +45,17 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::find($id)->first();
+        // dd($post);
+        if (is_null($post)) {
+            return response()->json('Data not found', 404);
+        }
+        return response()->json([
+            'post' =>$post,
+            // new PostResource($post),
+            // 'post' => PostResource::collection($post),
+            'status' => true,
+        ], 200);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Modules\Blog\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
@@ -20,6 +21,11 @@ class Post extends Model
         'view',
         'like',
     ];
+    public function category()
+        {
+            return $this->hasOne(Category::class);
+        }
+
 
     protected static function newFactory()
     {

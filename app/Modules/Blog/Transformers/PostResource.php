@@ -14,17 +14,19 @@ class PostResource extends ResourceCollection
      */
     public function toArray($request)
     {
+        // dd($this->title,);
          return [
-            'id' => $this->id,
-            'title' => $this->name,
-            'slug' => $this->slug,
+            'id'=>$this->id,
+            'title' =>$this->title,
+            'sulg' =>$this->slug,
             'img' => $this->img,
-            'atctor' => $this->user_id,
-            'status' => $this->status,
             'view' => $this->view,
+            'status' => $this->status,
+            'atctor' => $this->user_id,
             'like' => $this->like,
-            'created_at' => ($this->created_at),
-
+            'post'=>$this->post,
+            'date'=>jdate($this->created_at)->format('Y/m/d'),
+            'time'=>jdate($this->created_at)->format('H:i:s'),
         ];
     }
 }
