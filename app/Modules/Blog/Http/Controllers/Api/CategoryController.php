@@ -114,7 +114,7 @@ class CategoryController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param int $id
+     * @param int Category $categry
      * @return Response
      */
     public function destroy(Category $category)
