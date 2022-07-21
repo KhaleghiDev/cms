@@ -20,7 +20,7 @@ class FactoryPostFactory extends Factory
     public function definition()
     {
         return [
-            //
+
         ];
     }
 }

@@ -1,12 +1,11 @@
 <?php
 
-namespace Modules\Blog\Database\Seeders;
+namespace Modules\Auth\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use Modules\Blog\Database\Seeders\SeedFakeBlogPostsTableSeeder;
 
-class BlogDatabaseSeeder extends Seeder
+class AuthDatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,6 +16,6 @@ class BlogDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call("SeedFakeBlogPostsTableSeeder");
+        // $this->call("OthersTableSeeder");
     }
 }
