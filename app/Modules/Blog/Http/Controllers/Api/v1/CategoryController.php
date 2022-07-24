@@ -11,6 +11,8 @@ use Modules\Blog\Entities\Post;
 use Modules\Blog\Transformers\CategoryResource;
 use Modules\Blog\Transformers\PostResource;
 
+use function PHPUnit\Framework\isNull;
+
 class CategoryController extends Controller
 {
     /**
@@ -34,11 +36,12 @@ class CategoryController extends Controller
         ], 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Response
-     */
+    	/**
+	 * Create a Category
+	 *
+	 * [Insert optional longer description of the API endpoint here.]
+	 *
+	 */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -47,11 +50,6 @@ class CategoryController extends Controller
             'icon' => 'string|150',
             'parintid' => '',
         ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors());
-        }
-
         $category = Category::create([
             'title' => $request->title,
             'slug' => $request->slug,
@@ -68,8 +66,6 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-
-
         $category = Category::find($id)->first();
         $category_id=$category->id;
         $post = Post::where('category_id', $category_id)->get();
@@ -90,26 +86,19 @@ class CategoryController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Category $category)
     {
-        $category =Category::findOrfild($id)->first();
+// $category=Category::find($id)->get();
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255',
+            'title' => 'string|max:255',
+            'slug' => 'string|max:255',
             'icon' => 'string|150',
             'parintid' => '',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors());
-        }
 
-        $category = $category->update([
-            'title' => $request->title,
-            'slug' => $request->slug,
-            'icon' => $request->icon,
-            'parintid' => $request->parintid,
-        ]);
+dd($request->all());
+        $category = $category->update($request->all());
 
         return response()->json(['دسته بندی با موفقیت ایجاد شد', new CategoryResource($category)]);
     }

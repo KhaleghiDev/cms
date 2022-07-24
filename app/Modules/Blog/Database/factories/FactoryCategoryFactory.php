@@ -1,7 +1,7 @@
 <?php
 namespace Modules\Blog\Database\factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\Factory; 
 
 class FactoryCategoryFactory extends Factory
 {
@@ -20,8 +20,8 @@ class FactoryCategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
-            'slug' =>$this->faker->slug(),
+            'name' => $this->faker->name,
+            'slug' =>$this->faker->slug,
             'icon' => "fa-brands fa-laravel",
         ];
     }

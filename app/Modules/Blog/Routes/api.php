@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Http\Request;
-use Modules\Blog\Http\Controllers\Api\CategoryController;
-use Modules\Blog\Http\Controllers\Api\PostsController;
-use Modules\Blog\Http\Controllers\Api\TagController;
+use Modules\Blog\Http\Controllers\Api\v1\CategoryController;
+use Modules\Blog\Http\Controllers\Api\v1\PostsController;
+use Modules\Blog\Http\Controllers\Api\v1\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +15,12 @@ use Modules\Blog\Http\Controllers\Api\TagController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::apiResource('categories', 'Api\CategoryController');
-Route::apiResource('tsages', 'Api\TagController');
-Route::apiResource('postes', 'Api\PostsController');
+Route::prefix('v1')->namespace('Api\v1')->group(function () {
+    Route::apiResource('categories', '\CategoryController');
+    Route::apiResource('tsages', '\TagController');
+    Route::apiResource('postes', '\PostsController');
+});
+
 
 // Route::apiResource(['categories' => CategoryController::class]);
 
