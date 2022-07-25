@@ -1,12 +1,15 @@
 <?php
 
-namespace Modules\Blog\Http\Controllers\Api;
+namespace Modules\Blog\Http\Controllers\Api\v1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Validator;
 use Modules\Blog\Entities\Post;
-use Modules\Blog\Transformers\PostResource;
+use Modules\Blog\Entities\Tag;
+use Modules\Blog\Transformers\v1\PostResource;
+use Modules\Blog\Transformers\v1\TagResource;
 
 class PostsController extends Controller
 {
@@ -35,7 +38,18 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255',
+            'status' => '',
+        ]);
+        $tag = Tag::create([
+            'title' => $request->title,
+            'slug' => $request->slug,
+            'status'=>$request->status
+        ]);
+
+        return response()->json(['دسته بندی با موفقیت ایجاد شد', new TagResource($tag)]);
     }
 
     /**
@@ -66,7 +80,17 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255',
+            'status' => '',
+        ]);
+        $tag = Tag::create([
+            'title' => $request->title,
+            'slug' => $request->slug,
+            'status'=>$request->status
+        ]);
+        
     }
 
     /**

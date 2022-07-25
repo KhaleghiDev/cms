@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Blog\Http\Controllers\Api;
+namespace Modules\Blog\Http\Controllers\Api\v1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -8,8 +8,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 use Modules\Blog\Entities\Category;
 use Modules\Blog\Entities\Post;
-use Modules\Blog\Transformers\CategoryResource;
-use Modules\Blog\Transformers\PostResource;
+use Modules\Blog\Transformers\v1\CategoryResource;
+use Modules\Blog\Transformers\v1\PostResource;
 
 use function PHPUnit\Framework\isNull;
 
@@ -36,12 +36,9 @@ class CategoryController extends Controller
         ], 200);
     }
 
-    	/**
-	 * Create a Category
-	 *
-	 * [Insert optional longer description of the API endpoint here.]
-	 *
-	 */
+    /**
+     *
+     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [

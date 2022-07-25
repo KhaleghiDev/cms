@@ -1,11 +1,12 @@
 <?php
 
-namespace Modules\Auth\Http\Controllers;
+namespace Modules\Auth\Http\Controllers\v1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response as FacadesResponse;
 use Modules\User\Entities\User;
 
 class AuthController extends Controller
@@ -47,4 +48,15 @@ class AuthController extends Controller
             'token_type' => 'Bearer',
             ]);
         }
+
+        public function profile(Response $response){
+            $profile=auth::user();
+            return response()->json([
+                "ststue"=>true,
+                "profile"=>$profile,
+            ]);
+        }
+login
+register
+logout
 }

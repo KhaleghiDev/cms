@@ -1,11 +1,10 @@
 <?php
 
-namespace Modules\Blog\Transformers;
+namespace Modules\Blog\Transformers\v1;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use PhpParser\Node\Expr\PostDec;
 
-class CategoryResource extends JsonResource
+class TagResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +15,9 @@ class CategoryResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'=>$this->id,
             'title' =>$this->title,
             'sulg' =>$this->slug,
-            'parintid' =>$this->parintid,
-
-            // 'post'=>new PostDec($this->post),
+           'status'=> $this->status,
             'date'=>jdate($this->created_at)->format('Y/m/d'),
             'time'=>jdate($this->created_at)->format('H:i:s'),
         ];

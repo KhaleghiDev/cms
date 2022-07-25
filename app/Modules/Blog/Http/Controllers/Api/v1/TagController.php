@@ -1,10 +1,13 @@
 <?php
 
-namespace Modules\Blog\Http\Controllers\Api;
+namespace Modules\Blog\Http\Controllers\Api\v1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Validator;
+use Modules\Blog\Entities\Tag;
+use Modules\Blog\Transformers\v1\TagResource;
 
 class TagController extends Controller
 {
@@ -14,7 +17,19 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        $tag = Tag::all();
+        // dd($category);
+        if ($keyword = request('search')) {
+            $tag->where('title', 'LIKE', "%{$keyword}%")
+                ->orwhere('post', 'LIKE', "%{$keyword}%");
+        }
+        if ($paginate = request('paginate')) {
+            $category = $tag->paginate($paginate);
+        }
+        return response()->json([
+            'category' => TagResource::collection($tag),
+            'status' => true,
+        ], 200);
     }
 
     /**
@@ -24,7 +39,19 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255',
+            'icon' => 'string|150',
+            'parintid' => '',
+        ]);
+        $tag = Tag::create([
+            'title' => $request->title,
+            'slug' => $request->slug,
+            'icon' => $request->icon,
+            'parintid' => $request->parintid,
+        ]);
+        return response()->json(['تگ با موفقیت ایجاد شد', new TagResource($tag)]);
     }
 
     /**
@@ -34,7 +61,14 @@ class TagController extends Controller
      */
     public function show($id)
     {
-        //
+        $category = Tag::find($id)->first();
+        if (is_null($category)) {
+            return response()->json('Data not found', 404);
+        }
+        return response()->json([
+            'tag' =>   new TagResource($category),
+            'status' => true,
+        ], 200);
     }
 
     /**
@@ -45,7 +79,17 @@ class TagController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255',
+            'status' => 'string|150',
+        ]);
+        $tag = Tag::update([
+            'title' => $request->title,
+            'slug' => $request->slug,
+            'status' => $request->icon
+        ]);
+        return response()->json(['تگ با موفقیت ایجاد شد', new TagResource($tag)]);
     }
 
     /**
@@ -53,8 +97,12 @@ class TagController extends Controller
      * @param int $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+        return [
+            'massage' => "تگ با موفقیت حذف شد",
+            'status' => true,
+        ];
     }
 }
