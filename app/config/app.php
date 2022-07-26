@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         //dav me
         // Morilog\Jalali\JalaliServiceProvider::class,
+        L5Swagger\L5SwaggerServiceProvider::class,
     ],
 
     /*

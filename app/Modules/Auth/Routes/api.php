@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use Modules\Auth\Http\Controllers\v1\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes

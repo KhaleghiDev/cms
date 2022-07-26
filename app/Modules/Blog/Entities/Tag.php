@@ -15,7 +15,7 @@ class Tag extends Model
         'slug',
         'status',
     ];
-
+    protected $table = 'tages';
     protected static function newFactory()
     {
         return \Modules\Blog\Database\factories\TagFactory::new();

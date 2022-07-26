@@ -94,7 +94,6 @@ class CategoryController extends Controller
         ]);
 
 
-dd($request->all());
         $category = $category->update($request->all());
 
         return response()->json(['دسته بندی با موفقیت ایجاد شد', new CategoryResource($category)]);

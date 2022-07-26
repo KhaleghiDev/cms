@@ -13,10 +13,18 @@ use Modules\Blog\Transformers\v1\TagResource;
 
 class PostsController extends Controller
 {
-    /**
-     * @group   Post Group
-     * Display a listing of the resource.
-     * @return Response
+   /**
+     * @OA\Get(
+     *      path="/v1/posts",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     * ath="/products/{product_id}",
+     * @OA\Parameter(ref="#/components/parameters/product_id_in_path_required")
+     *     ),
+     * )
      */
     public function index()
     {
@@ -26,7 +34,7 @@ class PostsController extends Controller
                 ->orwhere('post', 'LIKE', "%{$keyword}%");
         }
         if ($paginate = request('paginate')) {
-        $posts = $posts->paginate($paginate);
+            $posts = $posts->paginate($paginate);
         }
         return $posts;
     }
@@ -46,7 +54,7 @@ class PostsController extends Controller
         $tag = Tag::create([
             'title' => $request->title,
             'slug' => $request->slug,
-            'status'=>$request->status
+            'status' => $request->status
         ]);
 
         return response()->json(['دسته بندی با موفقیت ایجاد شد', new TagResource($tag)]);
@@ -65,7 +73,7 @@ class PostsController extends Controller
             return response()->json('Data not found', 404);
         }
         return response()->json([
-            'post' =>$post,
+            'post' => $post,
             // new PostResource($post),
             // 'post' => PostResource::collection($post),
             'status' => true,
@@ -88,9 +96,8 @@ class PostsController extends Controller
         $tag = Tag::create([
             'title' => $request->title,
             'slug' => $request->slug,
-            'status'=>$request->status
+            'status' => $request->status
         ]);
-        
     }
 
     /**
@@ -105,5 +112,14 @@ class PostsController extends Controller
             'massage' => " پست با موفقیت حذف شد",
             'status' => true,
         ];
+    }
+    public function count(Request $request ,Post $post){
+        $post->update([
+            'view'=>$request->view,
+        ]);
+        return response()->json([
+            'ststus'=>true,
+            'massage'=>""
+        ]);
     }
 }

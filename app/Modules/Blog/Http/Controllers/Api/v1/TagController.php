@@ -42,14 +42,12 @@ class TagController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'slug' => 'required|string|max:255',
-            'icon' => 'string|150',
-            'parintid' => '',
+            'status' =>'',
         ]);
         $tag = Tag::create([
             'title' => $request->title,
             'slug' => $request->slug,
-            'icon' => $request->icon,
-            'parintid' => $request->parintid,
+            'status' => $request->status,
         ]);
         return response()->json(['تگ با موفقیت ایجاد شد', new TagResource($tag)]);
     }
