@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
+use Modules\Blog\Entities\Category;
 use Modules\Blog\Entities\Post;
 use Modules\Blog\Entities\Tag;
 use Modules\Blog\Transformers\v1\PostResource;
@@ -28,7 +29,9 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::query()->with(["category","user"])->get();
+    //    $category= $posts->category()->get();
+
         if ($keyword = request('search')) {
             $posts->where('title', 'LIKE', "%{$keyword}%")
                 ->orwhere('post', 'LIKE', "%{$keyword}%");
@@ -67,14 +70,16 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        $post = Post::find($id)->first();
+        $post = Post::query()->where('id',$id)->with(["category","user"]);
         // dd($post);
         if (is_null($post)) {
             return response()->json('Data not found', 404);
         }
+   
+        dd( PostResource::collection($post));
         return response()->json([
-            'post' => $post,
-            // new PostResource($post),
+            // 'post' => $post,
+            'post' =>  PostResource::collection($post),
             // 'post' => PostResource::collection($post),
             'status' => true,
         ], 200);

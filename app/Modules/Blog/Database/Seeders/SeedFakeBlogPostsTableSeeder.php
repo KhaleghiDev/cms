@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Blog\Entities\Post;
+use Modules\Blog\Database\Seeders\Str;
 
 class SeedFakeBlogPostsTableSeeder extends Seeder
 {

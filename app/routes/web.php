@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Blog\Entities\Post;
+use Modules\Blog\Transformers\v1\PostResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+
+Route::get('/p', function () {
+    $p = new PostResource(Post::find(2));
+    return $p;
 });

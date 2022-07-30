@@ -2,10 +2,12 @@
 
 namespace Modules\Blog\Entities;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Prophecy\Promise\ThrowPromise;
 
 class Post extends Model
 {
@@ -21,14 +23,14 @@ class Post extends Model
         'view',
         'like',
     ];
-    public function category()
+        public function category()
         {
-            return $this->hasOne(Category::class);
+            return $this->belongsTo(Category::class);
+        }
+        public function user(){
+            return $this->belongsTo(User::class);
         }
 
 
-    protected static function newFactory()
-    {
-        return \Modules\Blog\Database\factories\PostFactory::new();
-    }
+
 }

@@ -61,15 +61,14 @@ class CategoryController extends Controller
      * @param int $id
      * @return Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        $category = Category::find($id)->first();
         $category_id=$category->id;
-        $post = Post::where('category_id', $category_id)->get();
+        $post = $category->post->first();
         if (is_null($category)) {
             return response()->json('Data not found', 404);
         }
-        return response()->json([
+       return response()->json([
             'category' =>   new CategoryResource($category),
             'post' => $post,
             // 'post' => PostResource::collection($post),
