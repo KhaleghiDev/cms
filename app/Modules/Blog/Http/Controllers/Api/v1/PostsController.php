@@ -14,7 +14,7 @@ use Modules\Blog\Transformers\v1\TagResource;
 
 class PostsController extends Controller
 {
-   /**
+    /**
      * @OA\Get(
      *      path="/v1/posts",
      *      @OA\Response(
@@ -29,8 +29,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::query()->with(["category","user"])->get();
-    //    $category= $posts->category()->get();
+        $posts = Post::query()->with(["category", "user"])->get();
+        //    $category= $posts->category()->get();
 
         if ($keyword = request('search')) {
             $posts->where('title', 'LIKE', "%{$keyword}%")
@@ -70,13 +70,13 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        $post = Post::query()->where('id',$id)->with(["category","user"]);
+        $post = Post::query()->where('id', $id)->with(["category", "user"]);
         // dd($post);
         if (is_null($post)) {
             return response()->json('Data not found', 404);
         }
-   
-        dd( PostResource::collection($post));
+
+        dd(PostResource::collection($post));
         return response()->json([
             // 'post' => $post,
             'post' =>  PostResource::collection($post),
@@ -118,13 +118,14 @@ class PostsController extends Controller
             'status' => true,
         ];
     }
-    public function count(Request $request ,Post $post){
+    public function count(Request $request, Post $post)
+    {
         $post->update([
-            'view'=>$request->view,
+            'view' => $request->view,
         ]);
         return response()->json([
-            'ststus'=>true,
-            'massage'=>""
+            'ststus' => true,
+            'massage' => ""
         ]);
     }
 }

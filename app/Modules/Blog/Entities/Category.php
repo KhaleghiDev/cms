@@ -2,6 +2,7 @@
 
 namespace Modules\Blog\Entities;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -18,8 +19,8 @@ class Category extends Model
         'parintid',
         'status',
     ];
- public function post()
-{
-    return $this->hasOne(Post::class);
-}
+    public function post()
+    {
+        return $this->hasOne(Post::class);
+    }
 }

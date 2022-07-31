@@ -10,6 +10,7 @@ use Modules\Blog\Entities\Category;
 use Modules\Blog\Entities\Post;
 use Modules\Blog\Transformers\v1\CategoryResource;
 use Modules\Blog\Transformers\v1\PostResource;
+use Modules\User\Entities\User;
 
 use function PHPUnit\Framework\isNull;
 
@@ -21,8 +22,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::all();
-        // dd($category);
+        $category = Category::query()->with(["post.user"])->get();
+
         if ($keyword = request('search')) {
             $category->where('title', 'LIKE', "%{$keyword}%")
                 ->orwhere('post', 'LIKE', "%{$keyword}%");
@@ -30,8 +31,15 @@ class CategoryController extends Controller
         if ($paginate = request('paginate')) {
             $category = $category->paginate($paginate);
         }
+        $user_id = Category::with(["post" => function ($query) {
+            $query->with(["user"])->get();
+        }]);
+        // $user_id=Category::with('post.user')->get();;
+
         return response()->json([
-            'category' => CategoryResource::collection($category),
+            'category' => $category,
+            // 'user_id' => User::find($category[0]->post->user_id)->first,
+            'user_id' => $user_id,
             'status' => true,
         ], 200);
     }
@@ -63,12 +71,12 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        $category_id=$category->id;
+        $category_id = $category->id;
         $post = $category->post->first();
         if (is_null($category)) {
             return response()->json('Data not found', 404);
         }
-       return response()->json([
+        return response()->json([
             'category' =>   new CategoryResource($category),
             'post' => $post,
             // 'post' => PostResource::collection($post),
@@ -82,9 +90,9 @@ class CategoryController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request,Category $category)
+    public function update(Request $request, Category $category)
     {
-// $category=Category::find($id)->get();
+        // $category=Category::find($id)->get();
         $validator = Validator::make($request->all(), [
             'title' => 'string|max:255',
             'slug' => 'string|max:255',

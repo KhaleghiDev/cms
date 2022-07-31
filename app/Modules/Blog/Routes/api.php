@@ -15,6 +15,7 @@ use Modules\Blog\Http\Controllers\Api\v1\TagController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 Route::prefix('v1')->namespace('Api\v1')->group(function () {
 
     //router tag controller

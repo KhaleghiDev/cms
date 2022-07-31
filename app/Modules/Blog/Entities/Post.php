@@ -11,7 +11,7 @@ use Prophecy\Promise\ThrowPromise;
 
 class Post extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'title',
@@ -23,14 +23,12 @@ class Post extends Model
         'view',
         'like',
     ];
-        public function category()
-        {
-            return $this->belongsTo(Category::class);
-        }
-        public function user(){
-            return $this->belongsTo(User::class);
-        }
-
-
-
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
